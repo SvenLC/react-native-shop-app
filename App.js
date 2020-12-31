@@ -1,13 +1,15 @@
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import ShopNavigator from './navigation/ShopNavigator';
+import cartReducer from './store/reducers/cart';
 import productsReducer from './store/reducers/products';
-import AppLoading from 'expo-app-loading';
-import { useFonts } from 'expo-font';
 
 const rootReducer = combineReducers({
   products: productsReducer,
+  cart: cartReducer,
 });
 
 const store = createStore(rootReducer);
