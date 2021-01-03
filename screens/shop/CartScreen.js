@@ -7,7 +7,7 @@ import * as cartActions from '../../store/actions/cart';
 import * as orderActions from '../../store/actions/orders';
 
 const CartScreen = (props) => {
-  const cartTotalAmout = useSelector((state) => state.cart.totalAmout);
+  const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const cartItems = useSelector((state) => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
@@ -28,14 +28,14 @@ const CartScreen = (props) => {
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total: <Text>${cartTotalAmout.toFixed(2)}</Text>
+          Total: <Text>${cartTotalAmount.toFixed(2)}</Text>
         </Text>
         <Button
           color={Colors.accent}
           title='Order Now'
           disabled={cartItems === 0}
           onPress={() => {
-            dispatch(orderActions.addOrder(cartItems, cartTotalAmout));
+            dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
           }}
         />
       </View>
