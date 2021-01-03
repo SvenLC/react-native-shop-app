@@ -5,7 +5,6 @@ import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
 import * as cartActions from '../../store/actions/cart';
 import * as orderActions from '../../store/actions/orders';
-import { or } from 'react-native-reanimated';
 
 const CartScreen = (props) => {
   const cartTotalAmout = useSelector((state) => state.cart.totalAmout);
@@ -56,6 +55,10 @@ const CartScreen = (props) => {
       />
     </View>
   );
+};
+
+CartScreen.navigationOptions = {
+  headerTitle: 'Your Cart',
 };
 
 const styles = StyleSheet.create({
