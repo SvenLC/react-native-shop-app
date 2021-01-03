@@ -9,13 +9,6 @@ class Order {
   }
 
   get readableDate() {
-    // return this.date.toLocaleDateString('fr-FR', {
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: 'numeric',
-    //   hour: '2-digit',
-    //   minute: '2-digit',
-    // });
     return Moment(this.date).format('MMMM Do YYYY, hh:mm');
   }
 }
