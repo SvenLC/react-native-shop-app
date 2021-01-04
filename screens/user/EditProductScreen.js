@@ -9,14 +9,15 @@ import {
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/HeaderButton';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as productsAction from '../../store/actions/products';
 
 const EditProductScreen = (props) => {
   const prodId = props.navigation.getParam('productId');
   const editedProduct = useSelector((state) =>
     state.products.userProducts.find((prod) => prod.id === prodId)
   );
-
+  const dispatch = useDispatch();
   const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
   const [imageUrl, setImageUrl] = useState(
     editedProduct ? editedProduct.imageUrl : ''
@@ -27,8 +28,16 @@ const EditProductScreen = (props) => {
   );
 
   const submitHandler = useCallback(() => {
-    console.log('Submitting');
-  }, []);
+    if (editedProduct) {
+      dispatch(
+        productsAction.updateProduct(prodId, title, description, imageUrl)
+      );
+    } else {
+      dispatch(
+        productsAction.createProduct(title, description, imageUrl, +price)
+      );
+    }
+  }, [dispatch, prodId, title, description, imageUrl, price]);
 
   useEffect(() => {
     props.navigation.setParams({ submit: submitHandler });
@@ -55,14 +64,12 @@ const EditProductScreen = (props) => {
         </View>
         {editedProduct ? null : (
           <View style={styles.formControl}>
-            <Text
-              style={styles.label}
+            <Text style={styles.label}>Price</Text>
+            <TextInput
+              style={styles.input}
               value={price}
               onChangeText={(text) => setPrice(text)}
-            >
-              Price
-            </Text>
-            <TextInput style={styles.input}></TextInput>
+            ></TextInput>
           </View>
         )}
         <View style={styles.formControl}>
